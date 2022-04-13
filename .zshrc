@@ -1,3 +1,7 @@
+#zsh-completions
+autoload -Uz compinit
+compinit
+
 setopt PROMPT_SUBST     # allow funky stuff in prompt
 
 # color vars
@@ -9,6 +13,8 @@ eval col_same='$FG[034]'
 
 alias vim="nvim"
 export EDITOR=nvim
+
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="green"; fi
 local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
@@ -43,7 +49,7 @@ fi
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
-export PATH="/usr/bin:/Users/manzosk3/bin:/usr/local/opt/postgresql@12/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/sbin:/sbin:/usr/local/opt/python3/bin:/usr/local/MacGPG2/bin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Contents/MacOS:/Applications/Postgres.app/Contents/Versions/latest/bin/:/Users/manzosk3/.cargo/bin/"
+export PATH="/usr/bin:/Users/manzosk3/bin:/Users/manzosk3/Applications:/usr/local/opt/postgresql@12/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/sbin:/sbin:/usr/local/opt/python3/bin:/usr/local/MacGPG2/bin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Contents/MacOS:/Applications/Postgres.app/Contents/Versions/latest/bin/:/Users/manzosk3/.cargo/bin/:/Users/manzosk3/Library/Python/3.8/bin"
 
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"
 
@@ -53,3 +59,12 @@ fi
 
 eval "$(navi widget zsh)"
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+#zsh completion system
+autoload -U compinit; compinit
+_comp_options+=(globdots) # With hidden files
+source ~/.dotfiles.git/zsh/completion.zsh
+
+#zsh Directory stack settings
+setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
+
