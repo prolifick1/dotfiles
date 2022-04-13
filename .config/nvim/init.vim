@@ -1,20 +1,33 @@
+source $HOME/.config/nvim/plugins.vim
+
 let g:python3_host_prog='/usr/bin/python3'
 set backspace=2         
 colorscheme desert
 syntax on               
 filetype indent on    
+
+"use :h <setting> or :options for more info
+set tabstop=4 softtabstop=4
+set relativenumber
+set number
+set shiftwidth=4
+set expandtab
+set smartindent
 set autoindent      
 set shiftwidth=2
 set smartindent
-set number            
+set number
+set nohlsearch
+set noerrorbells
+set nowrap
+set incsearch
+set scrolloff=8
+set signcolumn=yes
+set colorcolumn=80
 set nobackup
 set ignorecase
 let mapleader="\<Space>"
-call plug#begin('~/.config/nvim/plugged')
-Plug 'puremourning/vimspector'
-Plug 'janko/vim-test'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-call plug#end()
+
 
 " puremourning/vimspector 
 fun! GotoWindow(id)
@@ -239,10 +252,14 @@ function! MochaStrategy(cmd)
   call vimspector#LaunchWithSettings( #{ configuration: 'mocha2', TestGrep: testGrep, TestName: testName } )
 endfunction  
 
- nnoremap <leader>df :TestNearest -strategy=jest<CR>
 
+nnoremap <leader>df :TestNearest -strategy=jest<CR>
 nnoremap <leader>dm :TestNearest -strategy=mocha2<CR>
+nnoremap <leader>dp :TestNearest -strategy=py<CR>
+
 let g:test#custom_strategies = {
       \ 'mocha2': function('MochaStrategy'),
       \ 'jest': function('JestStrategy'),
+      \ 'py': function('PyStrategy')
       \}
+
