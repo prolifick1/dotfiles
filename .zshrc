@@ -67,4 +67,5 @@ source ~/.dotfiles.git/zsh/completion.zsh
 
 #zsh Directory stack settings
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
-
+#zsh-syntax-highlighting plugin
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
